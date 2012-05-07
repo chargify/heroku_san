@@ -205,7 +205,6 @@ namespace :heroku do
   task :deploy, [:commit] => [:before_deploy] do |t, args|
     each_heroku_app do |stage|
       stage.deploy(args[:commit])
-      stage.migrate
     end
     Rake::Task[:after_deploy].execute
   end
@@ -215,7 +214,6 @@ namespace :heroku do
     task :force, [:commit] => [:before_deploy] do |t, args|
       each_heroku_app do |stage|
         stage.deploy(args[:commit], :force)
-        stage.migrate
       end
       Rake::Task[:after_deploy].execute
     end
